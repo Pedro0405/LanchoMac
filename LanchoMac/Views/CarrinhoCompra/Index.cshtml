@@ -1,0 +1,50 @@
+﻿@model CarrinhoCompraViewModel
+<div class="container">
+    <div class="row">
+
+
+        <div><img src="~/images/Full-Cart-icon.png" width="20" height="20" /> Seu carrinho de compras: </div>
+        <br />
+        <table>
+            <thead>
+                <tr>
+                    <th>Quantidade</th>
+                    <th>Lanche</th>
+                    <th class="text-right">Preço</th>
+                    <th class="text-right">Subtotal</th>
+               </tr>
+            </thead>
+
+             <tbody>
+                @foreach (var iten in Model.CarrinhoCompra.carrinhoCompraItems)
+                {
+                        <tr>
+                            <td class ="text-center">@iten.quantidade</td>
+                              <td class ="text-left">@iten.Lanche.Nome</td>
+                            <td class ="text-center">@iten.Lanche.Preco.ToString("C")</td>
+                            <td class ="text">@((iten.quantidade * @iten.Lanche.Preco).ToString("C"))</td>
+                            <td> 
+                                <a asp-controller="CarrinhoCompra" asp-action="RemoverItemDoCarrinho" asp-route-lancheid="@iten.Lanche.lancheId"> <img src="/images/delete.png" /></a>
+                            </td>
+                        </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                <td colspan="3" class="text-right">Total:</td>
+                <td class="text-right">@Model.CarrinhoCompraTotal.ToString("C") </td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="text-left">
+            <div class="btn-group">
+                <a class="btn btn-success" asp-controller="Pedido" asp-action="Checkout">Encerrar Pedido</a>
+                <a class="btn btn-primary" asp-controller="Lanche" asp-action="List" >Continuar Comprando </a>
+              </div>
+
+        </div>
+        <br />
+    </div>
+
+</div>

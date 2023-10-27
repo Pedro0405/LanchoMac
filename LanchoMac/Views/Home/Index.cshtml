@@ -1,0 +1,47 @@
+﻿    @model HomeViewModel
+    <div id="submenu-container">
+    <ul id="submenu">
+        @foreach (var categoria in Model.Categorias)
+        {
+                    <a class="btn btn-outline-primary" asp-controller="Lanche" asp-action="List" style="color:black" asp-route-categoria="@categoria.CategoriaNome"><li>@categoria.CategoriaNome</li></a>
+        }
+    </ul>
+</div>
+
+   <a asp-action="list"asp-controller="Lanche"><partial name = "Carousel" /></a> 
+
+    <h3>Os preferidos da semana: </h3>
+<div class="row"> 
+    @foreach (var lanche in Model.LanchesPreferidos)
+    {
+    <partial name="_LanchesResumo" for="@lanche"/>
+    }
+</div>
+
+<div class="text-center" style="margin-top:20px;">
+    <a class="btn btn-dark text-light text-center"asp-action="list"asp-controller="Lanche">Todos os lanches</a>
+</div>
+
+<style>
+#submenu-container {
+    width: 100%; /* Defina a largura desejada para o submenu */
+    overflow-x: auto; /* Adiciona rolagem horizontal quando há muitas categorias */
+    white-space: nowrap;
+}
+
+#submenu {
+    list-style: none;
+    padding: 0;
+    display: flex;
+}
+
+#submenu li {
+    padding: 10px;
+    color: black; /* Define a cor do texto como branco */
+    cursor: pointer;
+}
+
+#submenu li:hover {
+    color: #fff; /* Cor de fundo ao passar o mouse sobre uma categoria */
+}
+</style>

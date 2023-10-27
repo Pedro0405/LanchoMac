@@ -1,0 +1,50 @@
+﻿@model LancheListViewModel
+
+@{
+    ViewData["Title"] = "List";
+}
+    <div id="submenu-container">
+    <ul id="submenu">
+        @foreach (var categoria in Model.Categorias)
+        {
+                        <a class="btn btn-outline-primary" asp-controller="Lanche" asp-action="List" style="color:black" asp-route-categoria="@categoria.CategoriaNome"><li>@categoria.CategoriaNome</li></a>
+        }
+    </ul>
+</div>
+
+<div class="container">
+    @foreach (var grupo in Model.lanches.GroupBy(lanche => lanche.Categoria.CategoriaNome).OrderBy(grupo => grupo.Key))
+    {
+            <h3>@grupo.Key</h3> <!-- Exibe o título da categoria -->
+
+            <div class="row">
+            @foreach (var lanche in grupo)
+            {
+                        <partial name="_LanchesResumo" for="@lanche" />
+            }
+            </div>
+    }
+</div>
+<style>
+#submenu-container {
+    width: 100%; /* Defina a largura desejada para o submenu */
+    overflow-x: auto; /* Adiciona rolagem horizontal quando há muitas categorias */
+    white-space: nowrap;
+}
+
+#submenu {
+    list-style: none;
+    padding: 0;
+    display: flex;
+}
+
+#submenu li {
+    padding: 10px;
+    color: black; /* Define a cor do texto como branco */
+    cursor: pointer;
+}
+
+#submenu li:hover {
+    color: #fff; /* Cor de fundo ao passar o mouse sobre uma categoria */
+}
+</style>

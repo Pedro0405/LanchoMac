@@ -1,0 +1,70 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<LanchoMac.Models.Pedido>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Pedidos</h1>
+
+ <form method="get" class="form-inline">
+
+    <input name="filter" class="form-control" placeholder="filtro"
+           value="@Model.RouteValue["Filter"]" />
+
+    <button type="submit" class="btn btn-info">Procurar</button>
+</form> 
+
+Total de Pedidos : @Model.TotalRecordCount
+<div>
+   <vc:pager paging-list="@Model"></vc:pager>
+</div>
+
+<p>
+    <a class="btn btn-outline-info" asp-action="Create">Criar novo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Endereco1)
+            </th>
+              <th>
+                @Html.DisplayNameFor(model => model.Numero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FormaPagamento)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Endereco1)
+                </td>
+                 <td>
+                    @Html.DisplayFor(model => item.Numero)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FormaPagamento)
+                </td>
+
+                <td>
+                    <a class="btn btn-warning text-light" asp-action="Edit" asp-route-id="@item.PedidoId">Editar</a> 
+                    <a class="btn btn-success" asp-action="Details" asp-route-id="@item.PedidoId">Detalhes</a> 
+                    <a class="btn btn-info" asp-action="PedidoLanches" asp-route-id="@item.PedidoId">Ver Itens</a> 
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.PedidoId">Deletar</a> 
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

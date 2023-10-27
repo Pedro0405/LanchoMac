@@ -1,0 +1,35 @@
+﻿<br />
+@inject LanchoMac.Data.LanchesContexto _lanchesContexto;
+<img src="~/images/adminarea.jpg" alt="Àrea de Administração"  class="marginTop1"/>
+<div class="container">
+    <div class="jumbotron">
+        <p>
+           <h2>Esta é a área do Administrador</h2>
+        </p>
+    </div>
+
+@{
+    var status = ViewData["Status"] as Status.StoreStatus?;
+    string buttonText = "Abrir Loja";
+    string buttonClass = "btn-success"; // Verde
+
+    if (status != null)
+    {
+        if (status == 0)
+        {
+            buttonText = "Fechar Loja";
+            buttonClass = "btn-danger"; // Vermelho
+        }
+    }
+}
+
+<div>
+    <form method="post" asp-area="Admin" asp-controller="Admin" asp-action="ToggleStatus">
+        <input type="hidden" name="statusAction" value="AbrirLoja" />
+        <button type="submit" class="btn @buttonClass">@buttonText</button>
+    </form>
+</div>
+
+    
+    <a asp-area="" asp-controller="Home" asp-action="Index">Volta a Home Page</a>
+</div>

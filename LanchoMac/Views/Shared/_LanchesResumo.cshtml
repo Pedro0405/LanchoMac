@@ -1,0 +1,13 @@
+﻿@model Lanche
+
+ <div class="col-6 col-md-4 mb-3" style="min-height: 280px;">
+    <div class="h-100 d-flex flex-column">
+        <p><img src="@Model.ImagemUrl" class="img-fluid" style="height:170px;"></p>
+        <h3>Preço: @Model.Preco.ToString("c")</h3>
+        <a asp-controller="Lanche" asp-action="Details" asp-route-lancheid="@Model.lancheId">@Model.Nome</a>
+        <p>@Model.DescricaoCurta</p>
+        <div class="mt-auto">
+            <a class="btn btn-primary" id="cartButton" asp-controller="CarrinhoCompra" asp-action="AdcionarItemNoCarrinho" asp-route-lancheid="@Model.lancheId">Incluir no carrinho</a>
+        </div>
+    </div>
+</div>

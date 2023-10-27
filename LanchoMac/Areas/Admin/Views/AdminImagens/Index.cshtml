@@ -1,0 +1,41 @@
+﻿<h4><strong>Gerenciar Imagens</strong></h4>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post" enctype="multipart/form-data" asp-controller="AdminImagens" asp-action="UploadFiles">
+                <img src="~/images/upload2.png" width="200" height="150" />
+                <hr />
+                <div class="form-group">
+                    <p><b>Selecione um ou mais arquivos para enviar :</b></p>
+                    <p>(Arquivos com o mesmo nome serão sobrescritos)</p>
+                    <input type="file" name="files" multiple class="button btn-outline-primary" />
+                </div>
+                <hr />
+                <div class="form-group">
+                    <input type="submit" value="Enviar Arquivo(s)" class="button btn-outline-primary" />
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <form method="post" enctype="multipart/form-data" asp-controller="AdminImagens" asp-action="GetImagens">
+                <img src="~/images/visualizar1.jpg" width="200" height="200" />
+                <div class="form-group">
+                    <p><strong>Visualizar Imagens na pasta do servidor :</strong></p>
+                </div>
+                <hr />
+                <div class="form-group">
+                    <input type="submit" value="Visualizar Arquivos no servidor" class="button btn-outline-warning" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    @if (ViewData["Deletado"] != null)
+    {
+            <li>@ViewData["Deletado"]</li>
+    }
+</div>
+
+
