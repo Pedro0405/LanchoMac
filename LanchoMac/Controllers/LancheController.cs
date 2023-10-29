@@ -11,13 +11,17 @@ namespace LanchoMac.Controllers
     {
         private readonly ILancheRepository _lanchesRepository;
         private readonly ICategotiaRepository _categotiaRepository;
-        public LancheController(ILancheRepository lanchesRepository, ICategotiaRepository categotiaRepository)
+        private readonly LanchesContexto _lanchesContexto;
+        public LancheController(ILancheRepository lanchesRepository, ICategotiaRepository categotiaRepository, LanchesContexto lanchesContexto)
         {
             _lanchesRepository = lanchesRepository;
             _categotiaRepository = categotiaRepository;
+            _lanchesContexto = lanchesContexto;
         }
         public IActionResult List(string categoria)
         {
+            var stauts = _lanchesContexto.Status.FirstOrDefault(i => i.Id == 1);
+            ViewBag.StatusLoja = stauts.StatusLoja;
             var categorias = _categotiaRepository.categorias;
             IEnumerable<Lanche> lanches;
             string CategoriaAtual = string.Empty;

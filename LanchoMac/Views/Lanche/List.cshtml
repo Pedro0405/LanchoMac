@@ -11,20 +11,27 @@
         }
     </ul>
 </div>
-
-<div class="container">
-    @foreach (var grupo in Model.lanches.GroupBy(lanche => lanche.Categoria.CategoriaNome).OrderBy(grupo => grupo.Key))
-    {
-            <h3>@grupo.Key</h3> <!-- Exibe o título da categoria -->
+@if (ViewBag.StatusLoja == Status.StoreStatus.Aberto)
+{
+    <div class="container">
+        @foreach (var grupo in Model.lanches.GroupBy(lanche => lanche.Categoria.CategoriaNome).OrderBy(grupo => grupo.Key))
+        {
+            <h3>@grupo.Key</h3> 
+            <!-- Exibe o título da categoria -->
 
             <div class="row">
-            @foreach (var lanche in grupo)
-            {
-                        <partial name="_LanchesResumo" for="@lanche" />
-            }
+                @foreach (var lanche in grupo)
+                {
+                    <partial name="_LanchesResumo" for="@lanche" />
+                }
             </div>
-    }
-</div>
+        }
+    </div>
+}
+else
+{
+        <h2 class="text-center" style="color:red;">Estamos Fechado</h2>
+}
 <style>
 #submenu-container {
     width: 100%; /* Defina a largura desejada para o submenu */

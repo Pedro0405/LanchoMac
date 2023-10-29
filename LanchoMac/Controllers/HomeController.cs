@@ -1,7 +1,9 @@
-﻿using LanchoMac.Models;
+﻿using LanchoMac.Data;
+using LanchoMac.Models;
 using LanchoMac.Repositories.Interfaces;
 using LanchoMac.VIewModels;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Versioning;
 using System.Diagnostics;
 
 namespace LanchoMac.Controllers
@@ -10,15 +12,19 @@ namespace LanchoMac.Controllers
     {
         private readonly ILancheRepository _Lancherepository;
         private readonly ICategotiaRepository _categotiaRepository;
-        public HomeController(ILancheRepository lancherepository, ICategotiaRepository categotiaRepository)
+        private readonly LanchesContexto _lanchesContexto;
+        public HomeController(ILancheRepository lancherepository, ICategotiaRepository categotiaRepository, LanchesContexto lanchesContexto)
         {
             _Lancherepository = lancherepository;
             _categotiaRepository = categotiaRepository;
+            _lanchesContexto = lanchesContexto;
         }
 
         public IActionResult Index()
         {
             var categorias = _categotiaRepository.categorias;
+            var stauts = _lanchesContexto.Status.FirstOrDefault(i => i.Id == 1);
+            ViewBag.StatusLoja = stauts.StatusLoja;
             var HomeVM = new HomeViewModel
             {
                 LanchesPreferidos = _Lancherepository.LanchesPreferidos,

@@ -16,89 +16,49 @@ namespace LanchoMac.Areas.Admin.Controllers
             _lanchesContexto = lanchesContexto;
         }
 
-        public IActionResult Index(Status.StoreStatus? status)
+        public IActionResult Index()
         {
-            if (status.HasValue)
-            {
-                ViewData["Status"] = status;
-            }
+
+            var status = _lanchesContexto.Status.FirstOrDefault(i => i.Id == 1);
+            ViewBag.Status = status.StatusLoja;
             return View();
         }
-            [HttpPost]
-            public IActionResult AbrirLoja()
-            {
-                // Verifique se já existe um registro com Id igual a 1
-                var status = _lanchesContexto.Status.FirstOrDefault(s => s.Id == 1);
-
-                if (status == null)
-                {
-                    // Se não existir, crie um novo registro
-                    status = new Status
-                    {
-                        Id = 1,
-                        StatusLoja = Status.StoreStatus.Aberto
-                    };
-
-                    _lanchesContexto.Status.Add(status); // Adicione o novo registro ao contexto
-                }
-                else
-                {
-                    // Se já existe, simplesmente atualize o status para "Aberto"
-                    status.StatusLoja = Status.StoreStatus.Aberto;
-                }
-
-                _lanchesContexto.SaveChanges(); // Salve as alterações no banco de dados
-
-            var novoStatus = _lanchesContexto.Status.FirstOrDefault(s => s.Id == 1);
-
-            if (novoStatus != null)
-            {
-                return RedirectToAction("Index", new { status = novoStatus.StatusLoja });
-            }
-
-            return RedirectToAction("Index");
-
+        [HttpPost]
+        public IActionResult AbrirLoja()
+        {
+            AtualizarStatus(Status.StoreStatus.Aberto);
+            return RedirectToAction("Index", new { status = Status.StoreStatus.Aberto });
         }
+
         [HttpPost]
         public IActionResult FecharLoja()
         {
-            // Verifique se já existe um registro com Id igual a 1
+            AtualizarStatus(Status.StoreStatus.Fechado);
+            return RedirectToAction("Index", new { status = Status.StoreStatus.Fechado });
+        }
+
+        private void AtualizarStatus(Status.StoreStatus novoStatus)
+        {
             var status = _lanchesContexto.Status.FirstOrDefault(s => s.Id == 1);
 
             if (status == null)
             {
-                // Se não existir, crie um novo registro
                 status = new Status
                 {
                     Id = 1,
-                    StatusLoja = Status.StoreStatus.Fechado
+                    StatusLoja = novoStatus
                 };
 
-                _lanchesContexto.Status.Add(status); // Adicione o novo registro ao contexto
+                _lanchesContexto.Status.Add(status);
             }
             else
             {
-                // Se já existe, atualize o status para "Fechado"
-                status.StatusLoja = Status.StoreStatus.Fechado;
+                status.StatusLoja = novoStatus;
             }
 
-            _lanchesContexto.SaveChanges(); // Salve as alterações no banco de dados
+            _lanchesContexto.SaveChanges();
+        }
 
-            return RedirectToAction("Index"); // Redirecione para a página desejada após a alteração.
-        }
-        [HttpPost]
-        public IActionResult ToggleStatus(string statusAction)
-        {
-            if (statusAction == "AbrirLoja")
-            {
-                return RedirectToAction("AbrirLoja");
-            }
-            else if (statusAction == "FecharLoja")
-            {
-                return RedirectToAction("FecharLoja");
-            }
-            return View();
-        }
 
 
     }

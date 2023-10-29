@@ -1,7 +1,10 @@
-﻿using LanchoMac.Models;
+﻿using LanchoMac.Data;
+using LanchoMac.Models;
 using LanchoMac.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using ReflectionIT.Mvc.Paging;
 
 namespace LanchoMac.Controllers
 {
@@ -9,25 +12,32 @@ namespace LanchoMac.Controllers
     public class PedidoController : Controller
     {
         private readonly IPedidoRepository _pedidoRepository;
-
+        private readonly LanchesContexto _lanchesContexto;
         private readonly CarrinhoCompra _carrinhoCompra;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public PedidoController(CarrinhoCompra carrinhoCompra, IPedidoRepository pedidoRepository)
+        public PedidoController(CarrinhoCompra carrinhoCompra, IPedidoRepository pedidoRepository, UserManager<IdentityUser> userManager, LanchesContexto lanchesContexto)
         {
             _pedidoRepository = pedidoRepository;
             _carrinhoCompra = carrinhoCompra;
+            _userManager = userManager;
+            _lanchesContexto = lanchesContexto;
         }
         [Authorize]
         [HttpGet]
         public IActionResult Checkout()
         {
-            return View();
+            var useriD = _userManager.GetUserId(User);
+            var pedidosSalvos = _lanchesContexto.Pedidos.FirstOrDefault(i => i.IdUser == useriD);
+            Pedido pedido = pedidosSalvos;
+            return View(pedido);
         }
         [HttpPost]
         [Authorize]
         public IActionResult Checkout(Pedido pedido)
         {
-
+            var userId = _userManager.GetUserId(User); // Certifique-se de injetar o UserManager em seu controlador
+  
             int totalItensPedido = 0;
             decimal precoTotalPedido = 0.0m;
 
@@ -51,7 +61,7 @@ namespace LanchoMac.Controllers
             //atribui os valores obtidos ao pedido
             pedido.TotalItensPedido = totalItensPedido;
             pedido.PedidoTotal = precoTotalPedido;
-
+            pedido.IdUser = userId;
             //valida os dados do pedido
             if (ModelState.IsValid)
             {

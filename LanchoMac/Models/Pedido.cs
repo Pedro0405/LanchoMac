@@ -6,10 +6,14 @@ namespace LanchoMac.Models
     public class Pedido
     {
         public int PedidoId { get; set; }
+        public string IdUser { get; set; }
 
         [Required(ErrorMessage = "Informe o nome")]
         [StringLength(50)]
         public string Nome { get; set; }
+
+
+     
 
         [Required(ErrorMessage = "Informe o sobrenome")]
         [StringLength(50)]

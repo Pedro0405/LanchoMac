@@ -8,24 +8,29 @@
         </p>
     </div>
 
-@{
-    var status = ViewData["Status"] as Status.StoreStatus?;
-    string buttonText = "Abrir Loja";
-    string buttonClass = "btn-success"; // Verde
+    @{
+        var status = ViewBag.Status;
+        string buttonText = "Abrir Loja";
+        string buttonClass = "btn-success";
+        string action = "AbrirLoja";
 
-    if (status != null)
-    {
-        if (status == 0)
+        if (status == Status.StoreStatus.Fechado)
+        {
+            buttonText = "Abrir Loja";
+            buttonClass = "btn-success";
+            action = "AbrirLoja";
+        }
+        else if (status == Status.StoreStatus.Aberto)
         {
             buttonText = "Fechar Loja";
-            buttonClass = "btn-danger"; // Vermelho
+            buttonClass = "btn-danger";
+            action = "FecharLoja";
         }
     }
-}
 
 <div>
-    <form method="post" asp-area="Admin" asp-controller="Admin" asp-action="ToggleStatus">
-        <input type="hidden" name="statusAction" value="AbrirLoja" />
+    <form method="post" asp-controller="Admin" asp-area="Admin" asp-action="@action">
+        <input type="hidden"  />
         <button type="submit" class="btn @buttonClass">@buttonText</button>
     </form>
 </div>
