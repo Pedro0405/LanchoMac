@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LanchoMac.Controllers
 {
-    [Authorize]
+   
     public class CarrinhoCompraController : Controller
     {
         private readonly ILancheRepository _lancheRepository;
@@ -18,7 +18,7 @@ namespace LanchoMac.Controllers
             _lancheRepository = lancheRepository;
         }
 
-        [Authorize]
+     
         public IActionResult Index()
         {
             var itens = _carrinhoCompra.GetCarrinhoCompraItems();
@@ -30,7 +30,7 @@ namespace LanchoMac.Controllers
             };
             return View(carrinhocompraVM);
         }
-        [Authorize]
+  
         public IActionResult AdcionarItemNoCarrinho(int lancheid)
         {
             var lancheselecionado = _lancheRepository.lanches.FirstOrDefault(l => l.lancheId == lancheid);
@@ -42,7 +42,7 @@ namespace LanchoMac.Controllers
 
            return RedirectToAction("Index");
         }
-        [Authorize]
+        
         public IActionResult RemoverItemDoCarrinho(int lancheid)
         {
             var lancheselecionado = _lancheRepository.lanches.FirstOrDefault(l => l.lancheId == lancheid);

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace LanchoMac.Models
 {
@@ -24,7 +25,6 @@ namespace LanchoMac.Models
         [Display(Name = "Endereço")]
         public string Endereco1 { get; set; }
 
-
         [StringLength(3)]
         [Display(Name = "Numero")]
         public string Numero { get; set; }
@@ -37,10 +37,10 @@ namespace LanchoMac.Models
         [Display(Name = "CEP")]
         [StringLength(10, MinimumLength = 8)]
         public string Cep { get; set; }
-
+        [Required(ErrorMessage = "Informe o seu endereço")]
         [StringLength(20)]
         public string Estado { get; set; }
-
+        [Required(ErrorMessage = "Informe o seu endereço")]
         [StringLength(50)]
         public string Cidade { get; set; }
 
@@ -79,6 +79,7 @@ namespace LanchoMac.Models
         [DataType(DataType.Text)]
         [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy hh:mm}", ApplyFormatInEditMode = true)]
         public DateTime? PedidoEntregueEm { get; set; }
+        [JsonIgnore]
 
         public List<PedidoDetalhe> PedidoItens { get; set; }
 

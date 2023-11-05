@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using ReflectionIT.Mvc.Paging;
 using System;
 using System.Data;
+using System.Linq;
 using System.Reflection.Metadata;
 using System.Security.Permissions;
 
@@ -42,27 +43,36 @@ namespace LanchoMac.Areas.Admin.Controllers
         }
 
 
+
         // GET: Admin/AdminPedidos
-        public async Task<IActionResult> Index(string filter, int pageindex = 1, string sort = "Nome")
+      public async Task<IActionResult> Index(string filter, int pageindex = 1, string sort = "PedidoEnviado")
         {
-            //obtem os valores da tabela e por numa variavel de consulta
+            // Obtem os valores da tabela e coloca em uma variável de consulta
             var resultado = _context.Pedidos.AsNoTracking().AsQueryable();
 
-            //verifica se algo foi pesquisa  na caixa de pesquisa e coloca na consulta caso tenha
+            // Verifica se algo foi pesquisado na caixa de pesquisa e adiciona à consulta, se houver
             if (!string.IsNullOrEmpty(filter))
             {
                 resultado = resultado.Where(p => p.Nome.Contains(filter));
             }
-            //criacao de um modelo pagelist que vauter o resultado da cpnsilta, e quantos valores por paginas ecibe, alem de qual valor sera ordenado
-            var model = await PagingList.CreateAsync(resultado, 5, pageindex, sort, "Nome");
-            //cria a arota da pesquisa que sera usada na view
+
+            // Cria um modelo de PagingList com a consulta já ordenada
+            var model = await PagingList.CreateAsync(resultado, 8, pageindex, sort, "PedidoEnviado");
+
+            // Cria a rota da pesquisa que será usada na view
             model.RouteValue = new RouteValueDictionary { { "filter", filter } };
-            //passa a model pra view
+
+            // Passa o modelo para a view
             return View(model);
         }
 
-        // GET: Admin/AdminPedidos/Details/5
-        public async Task<IActionResult> Details(int? id)
+
+
+
+
+
+            // GET: Admin/AdminPedidos/Details/5
+            public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
