@@ -123,6 +123,7 @@ namespace LanchoMac.Migrations
                         .HasColumnType("varchar(10)");
 
                     b.Property<string>("Cidade")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
@@ -141,8 +142,9 @@ namespace LanchoMac.Migrations
                         .HasColumnType("varchar(100)");
 
                     b.Property<string>("Estado")
-                        .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
 
                     b.Property<string>("FormaPagamento")
                         .IsRequired()

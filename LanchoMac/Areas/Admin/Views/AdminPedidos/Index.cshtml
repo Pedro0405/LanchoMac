@@ -16,6 +16,17 @@ Total de Pedidos: @Model.TotalRecordCount
     <vc:pager paging-list="@Model"></vc:pager>
 </div>
 
+<form method="get" class="form-inline">
+    <input name="filter" class="form-control" placeholder="filtro" value="@Model.RouteValue["filter"]" />
+
+    <!-- Adicione a caixa de seleção para escolher o intervalo de dias -->
+    <label for="dateFilter">Escolher Data:</label>
+    <input type="date" name="dateFilter" id="dateFilter" class="form-control" value="@Model.RouteValue["dateFilter"]" />
+
+    <button type="submit" class="btn btn-info">Procurar</button>
+</form>
+
+
 <p>
     <a class="btn btn-outline-info" asp-action="Create">Criar novo</a>
 </p>

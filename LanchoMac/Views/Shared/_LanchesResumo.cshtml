@@ -7,7 +7,7 @@
         <a asp-controller="Lanche" asp-action="Details" asp-route-lancheid="@Model.lancheId">@Model.Nome</a>
         <p>@Model.DescricaoCurta</p>
         <div class="mt-auto">
-            <a class="btn btn-primary" id="cartButton" asp-controller="CarrinhoCompra" asp-action="AdcionarItemNoCarrinho" asp-route-lancheid="@Model.lancheId">Incluir no carrinho</a>
+            <a class="btn btn-secondary" id="cartButton" asp-controller="CarrinhoCompra" asp-action="AdcionarItemNoCarrinho" asp-route-lancheid="@Model.lancheId">Incluir no carrinho</a>
         </div>
     </div>
 </div>

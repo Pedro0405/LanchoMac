@@ -7,7 +7,7 @@
     <ul id="submenu">
         @foreach (var categoria in Model.Categorias)
         {
-                        <a class="btn btn-outline-primary" asp-controller="Lanche" asp-action="List" style="color:black" asp-route-categoria="@categoria.CategoriaNome"><li>@categoria.CategoriaNome</li></a>
+                        <a class="btn btn-dark" asp-controller="Lanche" asp-action="List" style="color:white;" asp-route-categoria="@categoria.CategoriaNome"><li>@categoria.CategoriaNome</li></a>
         }
     </ul>
 </div>
@@ -47,7 +47,6 @@ else
 
 #submenu li {
     padding: 10px;
-    color: black; /* Define a cor do texto como branco */
     cursor: pointer;
 }
 

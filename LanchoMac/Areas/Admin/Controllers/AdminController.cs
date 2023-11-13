@@ -20,7 +20,10 @@ namespace LanchoMac.Areas.Admin.Controllers
         {
 
             var status = _lanchesContexto.Status.FirstOrDefault(i => i.Id == 1);
-            ViewBag.Status = status.StatusLoja;
+            if (status != null)
+            {
+                ViewBag.Status = status.StatusLoja;
+            }
             return View();
         }
         [HttpPost]

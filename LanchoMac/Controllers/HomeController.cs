@@ -4,6 +4,7 @@ using LanchoMac.Repositories.Interfaces;
 using LanchoMac.VIewModels;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Versioning;
+using OpenQA.Selenium.DevTools.V117.CSS;
 using System.Diagnostics;
 
 namespace LanchoMac.Controllers
@@ -24,7 +25,10 @@ namespace LanchoMac.Controllers
         {
             var categorias = _categotiaRepository.categorias;
             var stauts = _lanchesContexto.Status.FirstOrDefault(i => i.Id == 1);
-            ViewBag.StatusLoja = stauts.StatusLoja;
+            if (stauts != null)
+            {
+                ViewBag.StatusLoja = stauts.StatusLoja;
+            }
             var HomeVM = new HomeViewModel
             {
                 LanchesPreferidos = _Lancherepository.LanchesPreferidos,

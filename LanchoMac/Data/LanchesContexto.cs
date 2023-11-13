@@ -10,6 +10,7 @@ namespace LanchoMac.Data
 public LanchesContexto(DbContextOptions<LanchesContexto> options)
         : base(options)
         {
+            Database.EnsureCreated();
         }
 
         public DbSet<Lanche> lanches { get; set; }

@@ -38,7 +38,7 @@ namespace LanchoMac.Models
         [StringLength(10, MinimumLength = 8)]
         public string Cep { get; set; }
         [Required(ErrorMessage = "Informe o seu endereço")]
-        [StringLength(20)]
+        [StringLength(30)]
         public string Estado { get; set; }
         [Required(ErrorMessage = "Informe o seu endereço")]
         [StringLength(50)]

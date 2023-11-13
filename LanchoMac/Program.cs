@@ -14,8 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<LanchesContexto>(options => options.UseMySql("Server=localhost;Port=3306;Database=LanchesDb;User=root;Password=123456;"
-, Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.34-mysql")));
+builder.Services.AddDbContext<LanchesContexto>(options => options.UseMySql("Server=bd.iron.hostazul.com.br;Port=4406;Database=176_lanchomacdb;User=176_pedro.0405;Password=xqsa1kbenptrvduoymih;"
+, Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.14-mysql")));
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<LanchesContexto>().AddDefaultTokenProviders();
 builder.Services.AddTransient<ILancheRepository, LanchesRepository>();
 builder.Services.AddTransient<ICategotiaRepository, CategoriaRepository>();

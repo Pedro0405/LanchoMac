@@ -45,7 +45,7 @@ namespace LanchoMac.Areas.Admin.Controllers
 
 
         // GET: Admin/AdminPedidos
-      public async Task<IActionResult> Index(string filter, int pageindex = 1, string sort = "PedidoEnviado")
+      public async Task<IActionResult> Index(string filter, string dateFilter, int pageindex = 1,  string sort = "PedidoEnviado")
         {
             // Obtem os valores da tabela e coloca em uma variável de consulta
             var resultado = _context.Pedidos.AsNoTracking().AsQueryable();
@@ -55,6 +55,12 @@ namespace LanchoMac.Areas.Admin.Controllers
             {
                 resultado = resultado.Where(p => p.Nome.Contains(filter));
             }
+            // Adicione a verificação para filtrar por data
+            if (!string.IsNullOrEmpty(dateFilter) && DateTime.TryParse(dateFilter, out var selectedDate))
+            {
+                resultado = resultado.Where(p => p.PedidoEnviado.Date == selectedDate.Date);
+            }
+
 
             // Cria um modelo de PagingList com a consulta já ordenada
             var model = await PagingList.CreateAsync(resultado, 8, pageindex, sort, "PedidoEnviado");
