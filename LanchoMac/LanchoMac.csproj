@@ -22,6 +22,8 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
     <PackageReference Include="ReflectionIT.Mvc.Paging" Version="6.0.1" />
     <PackageReference Include="Selenium.WebDriver" Version="4.15.0" />
+    <PackageReference Include="Twilio" Version="6.15.2" />
+    <PackageReference Include="Twilio.AspNet.Mvc" Version="8.0.2" />
   </ItemGroup>
 
   <ItemGroup>

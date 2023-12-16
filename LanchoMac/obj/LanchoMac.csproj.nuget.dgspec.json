@@ -84,6 +84,14 @@
             "Selenium.WebDriver": {
               "target": "Package",
               "version": "[4.15.0, )"
+            },
+            "Twilio": {
+              "target": "Package",
+              "version": "[6.15.2, )"
+            },
+            "Twilio.AspNet.Mvc": {
+              "target": "Package",
+              "version": "[8.0.2, )"
             }
           },
           "imports": [

@@ -4,6 +4,7 @@ using LanchoMac.Models;
 using LanchoMac.Repositories;
 using LanchoMac.Repositories.Interfaces;
 using LanchoMac.Services;
+using LanchoMac.Services.AutomaticMessages;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ReflectionIT.Mvc.Paging;
@@ -23,6 +24,7 @@ builder.Services.AddTransient<IPedidoRepository, PedidoRepository>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
 builder.Services.AddScoped<RelatorioVendasService>();
+builder.Services.AddScoped<ISendMessage, SendMessage>();
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("Admin",
